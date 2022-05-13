@@ -11,12 +11,15 @@ export type Coordinate = {
 
 const indicatorSize = 60;
 
+const getKey = (frame: number, src: string) =>
+	['coordinates', frame, src].join('-');
+
 const saveCalculatedFrame = (
 	frame: number,
 	src: string,
 	coordinate: Coordinate | null
 ) => {
-	const key = ['coordinates', src, frame].join('-');
+	const key = getKey(frame, src);
 	localStorage.setItem(
 		key,
 		coordinate === null ? 'null' : JSON.stringify(coordinate)
@@ -27,7 +30,7 @@ export const loadCalculateFrame = (
 	frame: number,
 	src: string
 ): Coordinate | null | undefined => {
-	const key = ['coordinates', src, frame].join('-');
+	const key = getKey(frame, src);
 	const content = localStorage.getItem(key);
 	return content
 		? content === 'null'
