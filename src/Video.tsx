@@ -2,10 +2,13 @@ import {getVideoMetadata, VideoMetadata} from '@remotion/media-utils';
 import {useEffect, useState} from 'react';
 import {Composition, continueRender, delayRender, staticFile} from 'remotion';
 import {Master} from './Composition';
+import {ensureAllFonts} from './ensure-fonts';
 
 const src = staticFile('basketball.mp4');
 
 const fps = 30;
+
+ensureAllFonts();
 
 export const RemotionVideo: React.FC = () => {
 	const [handle] = useState(() => delayRender());

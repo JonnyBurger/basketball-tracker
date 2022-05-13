@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import {AbsoluteFill, useCurrentFrame, useVideoConfig, Video} from 'remotion';
 import {Coordinate, loadCalculateFrame} from './Analyser';
+import {ScoreCard} from './Scorecard';
 
 const basket: [Coordinate, Coordinate] = [
 	{
@@ -127,6 +128,7 @@ export const Visualizer: React.FC<{
 				) : null}
 				<br />
 			</AbsoluteFill>
+			<ScoreCard />
 		</AbsoluteFill>
 	);
 };
