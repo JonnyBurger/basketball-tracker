@@ -1,4 +1,5 @@
 import React from 'react';
+import {useCurrentFrame} from 'remotion';
 import {Panel, PANEL_HEIGHT, PANEL_WIDTH} from './Panel';
 import {Scene} from './types';
 
@@ -14,6 +15,8 @@ export const SlidingPanel: React.FC<{
 	shots: Scene[];
 	numberOfOffset: number;
 }> = ({numberOfOffset, shots}) => {
+	const frame = useCurrentFrame();
+	const upcomingShot = shots.find((s) => frame < s.endFrame + 30);
 	return (
 		<div
 			style={{
@@ -32,7 +35,13 @@ export const SlidingPanel: React.FC<{
 				}}
 			>
 				{shots.map((shot, i) => {
-					return <Panel shot={shot} index={i + 1} />;
+					return (
+						<Panel
+							isCurrentShot={shot === upcomingShot}
+							shot={shot}
+							index={i + 1}
+						/>
+					);
 				})}
 			</div>
 		</div>

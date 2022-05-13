@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {AbsoluteFill, Img, Sequence, staticFile} from 'remotion';
 import {ScoreAnimation} from './ScoreAnimation';
 import {SlidingPanel} from './SlidingPanel';
 import {Scene} from './types';
@@ -79,7 +79,16 @@ export const ScoreCard: React.FC<{
 					<SlidingPanel shots={shots} numberOfOffset={scoreCardOffset} />
 				</div>
 				<div style={eventName}>2022 REMOTION FREE THROW INVITATIONAL</div>
-				<ScoreAnimation />
+				{shots.map((s) => {
+					if (!s.doesHit) {
+						return null;
+					}
+					return (
+						<Sequence from={s.endFrame}>
+							<ScoreAnimation />
+						</Sequence>
+					);
+				})}
 			</div>
 		</AbsoluteFill>
 	);
