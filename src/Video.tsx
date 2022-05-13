@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {Composition, continueRender, delayRender, staticFile} from 'remotion';
 import {Master} from './Composition';
 import {ensureAllFonts} from './ensure-fonts';
+import {Panel} from './Panel';
 
 const src = staticFile('basketball.mp4');
 
@@ -41,6 +42,14 @@ export const RemotionVideo: React.FC = () => {
 				defaultProps={{
 					src,
 				}}
+			/>
+			<Composition
+				id="Panel"
+				component={Panel}
+				durationInFrames={30}
+				fps={30}
+				height={120}
+				width={80}
 			/>
 		</>
 	);

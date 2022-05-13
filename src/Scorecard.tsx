@@ -1,5 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {Panel} from './Panel';
 
 const container: React.CSSProperties = {
 	padding: 50,
@@ -7,17 +8,31 @@ const container: React.CSSProperties = {
 	alignItems: 'flex-end',
 };
 
-const bottom: React.CSSProperties = {
-	backgroundColor: 'black',
-	height: 120,
+const outer: React.CSSProperties = {
 	width: '50%',
-	borderBottom: '4px solid #0b84f3',
+	boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)',
+};
+
+const bottom: React.CSSProperties = {
+	backgroundColor: 'rgba(0, 0, 0, 0.8)',
+	height: 120,
 	display: 'flex',
 	flexDirection: 'row',
 	color: 'white',
 	fontFamily: 'Roboto Condensed',
 	alignItems: 'center',
-	boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)',
+};
+
+const eventName: React.CSSProperties = {
+	backgroundColor: '#0b84f3',
+	width: '100%',
+	lineHeight: 1,
+	height: 30,
+	color: 'white',
+	fontFamily: 'Roboto Condensed',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
 };
 
 const surname: React.CSSProperties = {
@@ -33,18 +48,34 @@ const lastname: React.CSSProperties = {
 
 const profile: React.CSSProperties = {
 	height: '100%',
-	paddingRight: 15,
 };
 
 export const ScoreCard: React.FC = () => {
 	return (
 		<AbsoluteFill style={container}>
-			<div style={bottom}>
-				<Img style={profile} src={staticFile('jonny.png')} />
-				<div>
-					<div style={surname}>Jonny</div>
-					<div style={lastname}>BURGER</div>
+			<div style={outer}>
+				<div style={bottom}>
+					<Img style={profile} src={staticFile('jonny.png')} />
+					<div
+						style={{
+							backgroundColor: 'rgba(0, 0, 0, 0.3)',
+							height: '100%',
+							paddingLeft: 16,
+							flex: 1,
+							flexDirection: 'column',
+							justifyContent: 'center',
+							display: 'flex',
+						}}
+					>
+						<div style={surname}>Jonny</div>
+						<div style={lastname}>BURGER</div>
+					</div>
+					<Panel shot={1} />
+					<Panel shot={2} />
+					<Panel shot={3} />
+					<Panel shot={4} />
 				</div>
+				<div style={eventName}>2022 REMOTION FREE THROW INVITATIONAL</div>
 			</div>
 		</AbsoluteFill>
 	);
