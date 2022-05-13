@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
-import {Panel} from './Panel';
+import {SlidingPanel} from './SlidingPanel';
+import {Scene} from './types';
 
 const container: React.CSSProperties = {
 	padding: 50,
@@ -50,7 +51,10 @@ const profile: React.CSSProperties = {
 	height: '100%',
 };
 
-export const ScoreCard: React.FC = () => {
+export const ScoreCard: React.FC<{
+	scoreCardOffset: number;
+	shots: Scene[];
+}> = ({scoreCardOffset, shots}) => {
 	return (
 		<AbsoluteFill style={container}>
 			<div style={outer}>
@@ -70,10 +74,7 @@ export const ScoreCard: React.FC = () => {
 						<div style={surname}>Jonny</div>
 						<div style={lastname}>BURGER</div>
 					</div>
-					<Panel shot={1} />
-					<Panel shot={2} />
-					<Panel shot={3} />
-					<Panel shot={4} />
+					<SlidingPanel shots={shots} numberOfOffset={scoreCardOffset} />
 				</div>
 				<div style={eventName}>2022 REMOTION FREE THROW INVITATIONAL</div>
 			</div>

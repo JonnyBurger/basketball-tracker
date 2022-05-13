@@ -1,7 +1,14 @@
 import React, {useMemo} from 'react';
-import {AbsoluteFill, useCurrentFrame, useVideoConfig, Video} from 'remotion';
+import {
+	AbsoluteFill,
+	spring,
+	useCurrentFrame,
+	useVideoConfig,
+	Video,
+} from 'remotion';
 import {Coordinate, loadCalculateFrame} from './Analyser';
 import {ScoreCard} from './Scorecard';
+import {Scene} from './types';
 
 const basket: [Coordinate, Coordinate] = [
 	{
@@ -38,17 +45,11 @@ export const isInsideBasket = (coordinate: Coordinate | null) => {
 	return true;
 };
 
-type Scene = {
-	startFrame: number;
-	endFrame: number;
-	doesHit: boolean;
-};
-
 export const Visualizer: React.FC<{
 	src: string;
 }> = ({src}) => {
 	const frame = useCurrentFrame();
-	const {height, width, durationInFrames} = useVideoConfig();
+	const {height, width, durationInFrames, fps} = useVideoConfig();
 
 	const shots = useMemo(() => {
 		const scenes: Scene[] = [];
@@ -70,9 +71,26 @@ export const Visualizer: React.FC<{
 				frameBeforeShooting = true;
 			}
 		}
-		console.log(scenes);
 		return scenes;
 	}, [durationInFrames, src]);
+
+	const scoreCardOffset = useMemo(() => {
+		return shots
+			.map((s, i) => {
+				if (i === shots.length - 1) {
+					return 0;
+				}
+				return spring({
+					fps,
+					frame: frame - s.endFrame - 40,
+					config: {
+						mass: 0.5,
+						damping: 200,
+					},
+				});
+			})
+			.reduce((a, b) => a + b, 0);
+	}, [fps, frame, shots]);
 
 	const isInShot = shots.findIndex(
 		(s) => s.startFrame <= frame && s.endFrame >= frame
@@ -128,7 +146,7 @@ export const Visualizer: React.FC<{
 				) : null}
 				<br />
 			</AbsoluteFill>
-			<ScoreCard />
+			<ScoreCard shots={shots} scoreCardOffset={scoreCardOffset} />
 		</AbsoluteFill>
 	);
 };
