@@ -1,5 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile} from 'remotion';
+import {ScoreAnimation} from './ScoreAnimation';
 import {SlidingPanel} from './SlidingPanel';
 import {Scene} from './types';
 
@@ -12,6 +13,7 @@ const container: React.CSSProperties = {
 const outer: React.CSSProperties = {
 	width: '50%',
 	boxShadow: '0 0 10px rgba(0, 0, 0, 0.4)',
+	position: 'relative',
 };
 
 const bottom: React.CSSProperties = {
@@ -77,6 +79,7 @@ export const ScoreCard: React.FC<{
 					<SlidingPanel shots={shots} numberOfOffset={scoreCardOffset} />
 				</div>
 				<div style={eventName}>2022 REMOTION FREE THROW INVITATIONAL</div>
+				<ScoreAnimation />
 			</div>
 		</AbsoluteFill>
 	);
