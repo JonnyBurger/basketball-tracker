@@ -1,3 +1,5 @@
+/* eslint-disable @remotion/warn-native-media-tag */
+/* eslint-disable no-await-in-loop */
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {AbsoluteFill, useVideoConfig} from 'remotion';
 
@@ -96,7 +98,7 @@ export const Analyzer: React.FC<{
 
 		const matchingPixels: {x: number; y: number}[] = [];
 
-		// If the pixel is very green, reduce the alpha channel
+		// Find orange pixels
 		for (let i = 0; i < length; i += 4) {
 			const red = imageFrame.data[i + 0];
 			const green = imageFrame.data[i + 1];
@@ -158,7 +160,6 @@ export const Analyzer: React.FC<{
 			const frames = Math.floor(time * fps);
 
 			for (let i = 0; i < frames; i++) {
-				// eslint-disable-next-line no-await-in-loop
 				await analyzeFrame(video, i);
 				console.log('frames analyzed', i);
 				setFramesAnalyzed(i + 1);
@@ -181,7 +182,6 @@ export const Analyzer: React.FC<{
 	return (
 		<AbsoluteFill>
 			<AbsoluteFill>
-				{/* eslint-disable-next-line @remotion/warn-native-media-tag */}
 				<video
 					ref={video}
 					// If we access the data of a remote video, we must add this prop, and the remote video must have CORS enabled
