@@ -105,13 +105,14 @@ export const Visualizer: React.FC<{
 				<div
 					style={{
 						position: 'absolute',
-						width: 50,
-						height: 50,
-						marginLeft: -25,
-						marginTop: -25,
-						border: '5px solid blue',
+						width: 100,
+						height: 100,
+						marginLeft: -50,
+						marginTop: -50,
+						backgroundColor: 'rgba(255, 255, 255, 0.3)',
 						left: square.x,
 						top: square.y,
+						borderRadius: 50,
 					}}
 				/>
 			) : null}
@@ -126,7 +127,7 @@ export const Visualizer: React.FC<{
           z`}
 						fill="none"
 						stroke="green"
-						strokeWidth="10"
+						strokeWidth="0"
 					/>
 				</svg>
 			</AbsoluteFill>
@@ -136,6 +137,7 @@ export const Visualizer: React.FC<{
 					fontSize: 40,
 					padding: 30,
 					fontFamily: 'sans-serif',
+					opacity: 0,
 				}}
 			>
 				Is shooting = {isShooting(square ?? null)} <br />

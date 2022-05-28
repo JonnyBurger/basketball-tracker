@@ -33,7 +33,7 @@ export const RemotionVideo: React.FC = () => {
 	return (
 		<>
 			<Composition
-				id="Empty"
+				id="Comp"
 				component={Master}
 				durationInFrames={durationInFrames}
 				fps={fps}

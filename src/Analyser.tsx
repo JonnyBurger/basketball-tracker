@@ -160,6 +160,7 @@ export const Analyzer: React.FC<{
 			for (let i = 0; i < frames; i++) {
 				// eslint-disable-next-line no-await-in-loop
 				await analyzeFrame(video, i);
+				console.log('frames analyzed', i);
 				setFramesAnalyzed(i + 1);
 			}
 			onDone();
