@@ -4,6 +4,8 @@
 
 **See tutorial (8min)**: https://youtu.be/A8miHLSf_BI
 
+Since this is a fun project, no issues / pull requests are accepted.
+
 ## Commands
 
 **Install Dependencies**
