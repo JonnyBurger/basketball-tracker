@@ -1,13 +1,7 @@
 import React, {useMemo} from 'react';
-import {
-	AbsoluteFill,
-	spring,
-	useCurrentFrame,
-	useVideoConfig,
-	Video,
-} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, useVideoConfig, Video} from 'remotion';
 import {Coordinate, loadCalculateFrame} from './Analyser';
-import {ScoreCard} from './Scorecard';
+import {ScoreCardContainer} from './ScorecardContainer';
 import {Scene} from './types';
 
 const basket: [Coordinate, Coordinate] = [
@@ -48,8 +42,8 @@ export const isInsideBasket = (coordinate: Coordinate | null) => {
 export const Visualizer: React.FC<{
 	src: string;
 }> = ({src}) => {
+	const {durationInFrames} = useVideoConfig();
 	const frame = useCurrentFrame();
-	const {height, width, durationInFrames, fps} = useVideoConfig();
 
 	const shots = useMemo(() => {
 		const scenes: Scene[] = [];
@@ -74,81 +68,28 @@ export const Visualizer: React.FC<{
 		return scenes;
 	}, [durationInFrames, src]);
 
-	const scoreCardOffset = useMemo(() => {
-		return shots
-			.map((s, i) => {
-				if (i === shots.length - 1) {
-					return 0;
-				}
-				return spring({
-					fps,
-					frame: frame - s.endFrame - 40,
-					config: {
-						mass: 0.5,
-						damping: 200,
-					},
-				});
-			})
-			.reduce((a, b) => a + b, 0);
-	}, [fps, frame, shots]);
-
-	const isInShot = shots.findIndex(
-		(s) => s.startFrame <= frame && s.endFrame >= frame
-	);
-
-	const square = loadCalculateFrame(frame, src);
-
 	return (
 		<AbsoluteFill>
 			<Video src={src} />
-			{square ? (
-				<div
-					style={{
-						position: 'absolute',
-						width: 100,
-						height: 100,
-						marginLeft: -50,
-						marginTop: -50,
-						backgroundColor: 'rgba(255, 255, 255, 0.3)',
-						left: square.x,
-						top: square.y,
-						borderRadius: 50,
-					}}
-				/>
-			) : null}
-			<AbsoluteFill>
-				<svg viewBox={`0 0 ${width} ${height}`}>
-					<path
-						d={`
-          M ${basket[0].x} ${basket[0].y}
-          L ${basket[0].x} ${basket[1].y}
-          L ${basket[1].x} ${basket[1].y}
-          L ${basket[1].x} ${basket[0].y}
-          z`}
-						fill="none"
-						stroke="green"
-						strokeWidth="0"
-					/>
-				</svg>
-			</AbsoluteFill>
+			<div
+				style={{
+					backgroundColor: 'rgba(255, 255, 255, 0.4)',
+					height: 120,
+					width: 120,
+					borderRadius: 60,
+					position: 'absolute',
+					left: loadCalculateFrame(frame, src)?.x - 60,
+					top: loadCalculateFrame(frame, src)?.y - 60,
+				}}
+			/>
 			<AbsoluteFill
 				style={{
-					color: 'white',
-					fontSize: 40,
-					padding: 30,
-					fontFamily: 'sans-serif',
-					opacity: 0,
+					display: 'flex',
+					alignItems: 'flex-end',
 				}}
 			>
-				Is shooting = {isShooting(square ?? null)} <br />
-				{isInShot > -1 ? (
-					<div>
-						Shot = {isInShot + 1}, hit = {String(shots[isInShot].doesHit)}
-					</div>
-				) : null}
-				<br />
+				<ScoreCardContainer shots={shots} />
 			</AbsoluteFill>
-			<ScoreCard shots={shots} scoreCardOffset={scoreCardOffset} />
 		</AbsoluteFill>
 	);
 };

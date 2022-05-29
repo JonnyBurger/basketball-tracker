@@ -24,8 +24,6 @@ export const Panel: React.FC<{
 		},
 	});
 
-	const gradientOpacity = isCurrentShot ? (Math.sin(frame / 10) + 1) / 2 : 0;
-
 	return (
 		<div
 			style={{
@@ -58,7 +56,7 @@ export const Panel: React.FC<{
 					backgroundImage:
 						'radial-gradient(farthest-corner at bottom center, rgba(255, 255, 255, ' +
 						(isCurrentShot
-							? interpolate(gradientOpacity, [0, 1], [0.15, 0.3])
+							? interpolate((Math.sin(frame / 10) + 1) / 2, [0, 1], [0.15, 0.3])
 							: 0.08) +
 						') 0%, transparent 120%)',
 					display: 'flex',
