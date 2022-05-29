@@ -1,6 +1,6 @@
 # React + Remotion basketball tracker
 
-<img src="thumbnail.gif">
+<img src="thumbnail.gif" style="width: 100%">
 
 **See tutorial (8min)**: https://youtu.be/A8miHLSf_BI
 
