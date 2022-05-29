@@ -1,12 +1,8 @@
-# Remotion video
+# React + Remotion basketball tracker
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <img src="https://github.com/remotion-dev/logo/raw/main/withtitle/element-0.png">
-  </a>
-</p>
+<img src="thumbnail.gif">
 
-Welcome to your Remotion project!
+**See tutorial (8min)**: https://youtu.be/A8miHLSf_BI
 
 ## Commands
 

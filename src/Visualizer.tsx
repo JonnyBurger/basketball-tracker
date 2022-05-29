@@ -71,17 +71,6 @@ export const Visualizer: React.FC<{
 	return (
 		<AbsoluteFill>
 			<Video src={src} />
-			<div
-				style={{
-					backgroundColor: 'rgba(255, 255, 255, 0.4)',
-					height: 120,
-					width: 120,
-					borderRadius: 60,
-					position: 'absolute',
-					left: loadCalculateFrame(frame, src)?.x - 60,
-					top: loadCalculateFrame(frame, src)?.y - 60,
-				}}
-			/>
 			<AbsoluteFill
 				style={{
 					display: 'flex',
